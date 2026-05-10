@@ -1,0 +1,30 @@
+<div x-data="hermesDashboard()" x-init="init()">
+  <h3>📊 Hermes Agent Dashboard</h3>
+  <div class="status-bar">
+    <span :class="status.connected ? 'badge ok' : 'badge err'">
+      <span x-text="status.connected ? '✅ Connected' : '❌ Disconnected'"></span>
+    </span>
+    <span class="badge" x-show="status.latency_ms > 0" x-text="status.latency_ms + 'ms'"></span>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-value" x-text="status.tool_count || 0"></div><div class="stat-label">Tools</div></div>
+    <div class="stat-card"><div class="stat-value" x-text="status.skills_count || 0"></div><div class="stat-label">Skills</div></div>
+    <div class="stat-card"><div class="stat-value" x-text="status.active_jobs || 0"></div><div class="stat-label">Jobs</div></div>
+  </div>
+  <div class="actions">
+    <button @click="syncTools()">🔄 Sync Tools</button>
+    <button @click="syncSkills()">🔄 Sync Skills</button>
+    <button class="secondary" @click="refresh()">↻ Refresh</button>
+  </div>
+  <script>
+  function hermesDashboard() {
+    return {
+      status: {connected:false, latency_ms:0, tool_count:0, skills_count:0, active_jobs:0},
+      async init() { await this.refresh(); },
+      async refresh() { const r = await fetch('/api/plugins/hermes_bridge/status'); this.status = await r.json(); },
+      async syncTools() { await fetch('/api/plugins/hermes_bridge/sync_tools',{method:'POST'}); await this.refresh(); },
+      async syncSkills() { await fetch('/api/plugins/hermes_bridge/sync_skills',{method:'POST'}); await this.refresh(); }
+    };
+  }
+  </script>
+</div>

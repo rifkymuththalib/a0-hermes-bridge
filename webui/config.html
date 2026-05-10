@@ -1,0 +1,39 @@
+<section x-data="{ config: {} }" x-init="
+  fetch('/api/plugins/hermes_bridge/config').then(r=>r.json()).then(d=>config=d.config||{});
+">
+  <h3>🚀 Hermes Agent Bridge Settings</h3>
+  <p>Configure your Hermes Agent connection below.</p>
+  <div class="field">
+    <label>Hermes Base URL</label>
+    <input type="text" x-model="config.hermes_base_url" placeholder="http://127.0.0.1:8642">
+  </div>
+  <div class="field">
+    <label>API Key</label>
+    <input type="password" x-model="config.api_key" placeholder="Optional Bearer token">
+  </div>
+  <div class="field">
+    <label>Timeout (seconds)</label>
+    <input type="number" x-model="config.timeout_seconds" min="1" max="300">
+  </div>
+  <div class="field">
+    <label>Default Model</label>
+    <input type="text" x-model="config.default_model" placeholder="hermes-default">
+  </div>
+  <div class="field">
+    <label>Connection Mode</label>
+    <select x-model="config.connection_mode">
+      <option value="http_api">HTTP API</option>
+      <option value="mcp">MCP</option>
+    </select>
+  </div>
+  <div class="field checkbox">
+    <label><input type="checkbox" x-model="config.auto_discover_tools"> Auto-discover tools</label>
+  </div>
+  <div class="field checkbox">
+    <label><input type="checkbox" x-model="config.auto_sync_skills"> Auto-sync skills</label>
+  </div>
+  <div class="actions">
+    <button @click="fetch('/api/plugins/hermes_bridge/config',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(config)}).then(r=>r.json()).then(d=>alert(d.success?'Settings saved!':'Save failed'))">💾 Save</button>
+    <button class="secondary" @click="fetch('/api/plugins/hermes_bridge/status').then(r=>r.json()).then(d=>alert(d.connected?'✅ Connected':'❌ Unreachable: '+JSON.stringify(d.error||d)))">🧪 Test</button>
+  </div>
+</section>

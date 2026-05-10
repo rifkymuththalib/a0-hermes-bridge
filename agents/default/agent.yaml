@@ -1,0 +1,7 @@
+title: Hermes Specialist
+description: Agent specialized in delegating tasks to a Hermes Agent instance via the hermes_bridge plugin.
+context: |
+  Use this agent when the user needs to leverage Hermes Agent capabilities through
+  the hermes_bridge plugin. This includes: chatting with Hermes, running Hermes skills,
+  submitting background jobs, discovering Hermes tools, searching Hermes memory,
+  and spawning Hermes as a subordinate agent.

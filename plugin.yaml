@@ -1,0 +1,14 @@
+name: hermes_bridge
+version: 2.0.0
+title: Hermes Agent Bridge
+description: |
+  Bridge Agent Zero with a Hermes Agent instance. Delegate tasks,
+  invoke Hermes skills, query its tool registry, and monitor jobs.
+author: Rifky Muththalib
+website: https://github.com/rifkymuththalib/a0-hermes-bridge
+icon: 🤝
+settings_sections:
+  - agent
+  - external
+per_project_config: true
+per_agent_config: true
