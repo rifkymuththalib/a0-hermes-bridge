@@ -1,0 +1,1 @@
+{"hermes_base_url": "http://127.0.0.1:8642", "api_key": "", "timeout_seconds": 60, "use_mcp": false, "mcp_server_url": "", "auto_discover_tools": true, "auto_sync_skills": true, "default_model": "hermes-default", "connection_mode": "http_api"}
